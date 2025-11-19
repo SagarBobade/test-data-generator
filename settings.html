@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Test Data Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset and Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      padding: 30px;
+      background-color: #93b8ee;
+      color: #2c3e50;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      margin: 0; /* Ensure no default margin interferes */
+      max-height: 300px; /* Reduced for testing overflow */
+      overflow-y: auto; /* Enable vertical scrolling */
+      position: relative; /* For positioning the icon */
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #2c3e50;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 15px;
+      color: #34495e;
+      font-weight: 500;
+    }
+
+    /* Main Container */
+    .settings-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex-grow: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Section Cards */
+    .settings-section {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Toggle Container */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .toggle-container:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-container label {
+      margin-left: 12px;
+      font-size: 14px;
+      color: #2c3e50;
+      cursor: pointer;
+    }
+
+    .toggle-container input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #3498db;
+    }
+
+    .input-container, .select-container {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .input-container label, .select-container label {
+      font-size: 14px;
+      color: #2c3e50;
+      margin-right: 12px;
+      min-width: 120px;
+    }
+
+    .input-container input[type="number"] {
+      width: 80px;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-container input[type="number"]:focus {
+      border-color: #3498db;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    /* Button */
+    button#save-settings {
+      width: 100%;
+      max-width: 400px;
+      padding: 14px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 30px auto 0;
+      display: block;
+    }
+
+    button#save-settings:hover {
+      background-color: #2980b9;
+    }
+
+    /* Username Settings */
+    .username-settings {
+      padding: 10px 0;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .checkbox-container label {
+      margin-left: 12px;
+      font-size: 14px;
+      color: #2c3e50;
+    }
+
+    .settings-group {
+      padding: 10px;
+      margin-left: 20px;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out; /* Fade effect */
+    }
+
+    .settings-group.hidden {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 0;
+      transition: opacity 0.3s ease-in-out, height 0s linear 0.3s; /* Fade then collapse */
+    }
+    .input-container { margin: 5px 0; }
+    .checkbox-container { margin: 5px 0; }
+
+    #save-settings {
+      position: fixed;
+      bottom: 20px;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Offset by half its width */
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+    #save-settings:hover {
+      background-color: #2980b9;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .settings-container {
+        grid-template-columns: 1fr;
+      }
+      .settings-section {
+        margin-bottom: 20px;
+      }
+      body {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      body {
+        padding: 15px;
+      }
+      .input-container label, .select-container label {
+        min-width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Settings - Test Data Generator</h1>
+
+  <div class="settings-container">
+    <!-- Column 1 -->
+    <div class="column">
+      <!-- Personal Data -->
+      <div class="settings-section">
+        <h2>Personal Data</h2>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-first-name" checked />
+          <label for="toggle-first-name">Show <b>First Name</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-last-name" checked />
+          <label for="toggle-last-name">Show <b>Last Name</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-full-name" checked />
+          <label for="toggle-full-name">Show <b>Full Name</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-job-title" checked />
+          <label for="toggle-job-title">Show <b>Job Title</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-username" checked />
+          <label for="toggle-username">Show <b>Username</b> Button <span style="color: rgb(13, 130, 220); font-style: italic;">(configurable)</span></label>
+        </div>
+        <div id="username-settings" class="settings-group">
+          <div class="input-container">
+            <label for="username-min-length">Min Length:</label>
+            <input type="number" id="username-min-length" min="3" max="30" value="6" />
+          </div>
+          <div class="input-container">
+            <label for="username-max-length">Max Length:</label>
+            <input type="number" id="username-max-length" min="3" max="30" value="12" />
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="username-lowercase" checked />
+            <label for="username-lowercase">Include Lowercase (a-z)</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="username-uppercase" checked />
+            <label for="username-uppercase">Include Uppercase (A-Z)</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="username-numbers" checked />
+            <label for="username-numbers">Include Numbers (0-9)</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="username-special" />
+            <label for="username-special">Include Special (!@#$%)</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="column">
+      <!-- Contact Info -->
+      <div class="settings-section">
+        <h2>Contact Information</h2>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-email" checked />
+          <label for="toggle-email">Show <b>Email</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-phone" checked />
+          <label for="toggle-phone">Show <b>Phone Number</b> Button</label>
+        </div>
+        <div class="select-container settings-group" id="phone-settings">
+          <label for="country-select">Phone Number Country:</label>
+          <select id="country-select">
+            <option value="US">United States</option>
+            <option value="IN">India</option>
+          </select>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-website" checked />
+          <label for="toggle-website">Show <b>Website</b> Button</label>
+        </div>
+      </div>
+
+      <!-- Text Content -->
+      <div class="settings-section">
+        <h2>Text Content</h2>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-sentence" checked />
+          <label for="toggle-sentence">Show <b>Sentence</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-paragraph" checked />
+          <label for="toggle-paragraph">Show <b>Paragraph</b> Button</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Column 3 -->
+    <div class="column">
+      <!-- Identifiers -->
+      <div class="settings-section">
+        <h2>Identifiers</h2>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-uuid" checked />
+          <label for="toggle-uuid">Show <b>UUID</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-credit-card" checked />
+          <label for="toggle-credit-card">Show <b>Credit Card</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-pan" checked />
+          <label for="toggle-pan">Show <b>PAN Number</b> Button</label>
+        </div>
+      </div>
+
+      <!-- Social & Media -->
+      <div class="settings-section">
+        <h2>Social & Media</h2>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-linkedin" checked />
+          <label for="toggle-linkedin">Show <b>LinkedIn Profile</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-imdb" checked />
+          <label for="toggle-imdb">Show <b>IMDb Profile</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-movie" checked />
+          <label for="toggle-movie">Show <b>Movie</b> Button</label>
+        </div>
+      </div>
+
+      <!-- Miscellaneous -->
+      <div class="settings-section">
+        <h2>Miscellaneous</h2>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-city" checked />
+          <label for="toggle-city">Show <b>City, Country</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-company" checked />
+          <label for="toggle-company">Show <b>Company</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggle-ipv4" checked />
+          <label for="toggle-ipv4">Show <b>IPv4 Address</b> Button</label>
+        </div>
+        <div class="toggle-container">
+          <input type="checkbox" id="toggleIPv6" checked />
+          <label for="toggle-ipv4">Show <b>IPv6 Address</b> Button</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Button -->
+  <button id="save-settings">Save Settings</button>
+  <script src="dist/settings.min.js"></script>
+  <!-- Cloudflare script remains unchanged -->
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9270b69678522ba1',t:'MTc0MzA5NzY0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

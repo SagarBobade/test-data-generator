@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/chrome": "^0.0.297",
+    "terser": "^5.39.0"
+  },
+  "scripts": {
+  "minify": "terser content.js -o content.min.js -c -m"
+}
+}

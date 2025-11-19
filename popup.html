@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Data Generator</title>
+  <style>
+    /* General styles */
+    body {
+      width: 400px;
+      font-family: 'Poppins', sans-serif; /* Premium font */
+      margin: 0;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 250px; /* Increased height for spacious design */
+      background-color: #7690bc; /* Soft, light background */
+      color: #333; /* Subtle dark text for readability */
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #2c3e50; /* Premium dark color */
+    }
+
+    .section {
+      margin-bottom: 15px;
+    }
+
+    .output-container {
+      margin-bottom: 15px;
+      text-align: center;
+      border-radius: 12px; /* Rounded corners */
+      padding: 15px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    #movie-name, #sentence, #first-name, #last-name, #ipv6, #ipv4, #pan-number, #full-name, #job-title, #username, #company, #paragraph, #credit-card, #email, #website, #phone-number, #city, 
+    #uuid, #imdb, #linkedin{
+      font-size: 18px;
+      font-weight: bold;
+      margin: 5px 0;
+      color: #3498db;
+    }
+
+    #movie-name.loading {
+      color: #27ae60; /* Green for "Loading..." */
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    #copied-message {
+      display: none;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      color: #000000;
+    }
+
+#generateParagraph {
+  margin-top: 10px;
+}
+
+#generateCompany {
+  margin-top: 10px;
+}
+
+#randomCompany {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #444;
+  font-weight: bold;
+}
+
+/* Container to hold buttons */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between buttons */
+  justify-content: center; /* Center align */
+}
+
+span.error-message {
+      color: #e74c3c !important;
+      font-weight: bold;
+    }
+
+/* Style for each button */
+.button-container button {
+  width: 150px;  /* Set a consistent width for buttons */
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.button-container button:hover {
+  background-color: #45a049;
+}
+
+/* Assign unique colors to each button */
+.buttons-container button:nth-child(1) { background-color: #e74c3c; } /* Red */
+.buttons-container button:nth-child(2) { background-color: #3498db; } /* Blue */
+.buttons-container button:nth-child(3) { background-color: #2ecc71; } /* Green */
+.buttons-container button:nth-child(4) { background-color: #f39c12; } /* Orange */
+.buttons-container button:nth-child(5) { background-color: #9b59b6; } /* Purple */
+.buttons-container button:nth-child(6) { background-color: #1abc9c; } /* Teal */
+.buttons-container button:nth-child(7) { background-color: #e67e22; } /* Dark Orange */
+.buttons-container button:nth-child(8) { background-color: #34495e; } /* Dark Gray */
+.buttons-container button:nth-child(9) { background-color: #d35400; } /* Burnt Orange */
+.buttons-container button:nth-child(10) { background-color: #16a085; } /* Dark Teal */
+.buttons-container button:nth-child(11) { background-color: #a90c7c; } /* Deep Purple */
+.buttons-container button:nth-child(13) { background-color: #b2e294; }
+.buttons-container button:nth-child(14) { background-color: #d669e9; }
+.buttons-container button:nth-child(15) { background-color: #e91e63; } /* Pink */
+.buttons-container button:nth-child(12) { background-color: #8e44ad; }
+.buttons-container button:nth-child(16) { background-color: #c2a1d0; }
+.buttons-container button:nth-child(17) { background-color: #69bb96; }
+.buttons-container button:nth-child(18) { background-color: #213461; }
+#refresh-ipv4-btn { background-color: #1b4f83; }
+#refresh-ipv6-btn { background-color: #9b59b6; }
+
+/* Hover effect for all buttons */
+.buttons-container button:hover {
+  filter: brightness(90%);
+}
+
+/* Responsive design for 3 columns */
+@media (min-width: 768px) {
+  .button-container button {
+    width: calc(33.333% - 10px); /* 3 columns with a gap of 10px */
+  }
+}
+
+@media (max-width: 768px) {
+  .button-container button {
+    width: 100%; /* Stack buttons on smaller screens */
+  }
+}
+
+/* Add to popup.html <style> */
+  #linkedin-icon:hover {
+  opacity: 0.8; /* Subtle hover effect */
+}
+
+#linkedin-icon {
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Optional: Add a tooltip */
+#linkedin-icon {
+  position: relative;
+}
+
+#linkedin-icon::after {
+  content: "Feedback? Connect with me!";
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#linkedin-icon:hover::after {
+  opacity: 1;
+}
+  </style>
+</head>
+<body>
+  <h1>Test Data Generator</h1>
+  <div style="position: absolute; top: 10px; right: 10px; cursor: pointer;" id="settings-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="feather feather-settings"
+    >
+      <circle cx="12" cy="12" r="3"></circle>
+      <path
+        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+      ></path>
+    </svg>
+  </div>
+
+  <div style="position: absolute; top: 10px; right: 40px; cursor: pointer;" id="linkedin-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="#0077b5" <!-- LinkedIn Blue -->
+      class="feather feather-linkedin"
+    >
+      <path
+        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-1.337-.027-3.058-1.867-3.058-1.867 0-2.153 1.459-2.153 2.965v5.697h-3v-11h2.878v1.496h.041c.401-.761 1.381-1.496 2.841-1.496 3.037 0 3.6 2 3.6 4.604v6.396z"
+      />
+    </svg>
+  </div>
+
+  <!-- Output Container -->
+  <div id="extension-popup" class="output-container">
+    <p id="movie-name"></p>
+    <p id="sentence"></p>
+    <p id="randomParagraph"></p>
+    <p id="first-name"></p>
+    <p id="last-name"></p>
+    <p id="full-name"></p>
+    <p id="email"></p>
+    <p id="paragraph"></p>
+    <p id="company"></p>
+    <p id="website"></p>
+    <p id="phone-number"></p>
+    <p id="city"></p>
+    <p id="uuid"></p>
+    <p id="imdb"></p>
+    <p id="linkedin"></p>
+    <p id="credit-card"></p>
+    <p id="username"></p>
+    <p id="job-title"></p>
+    <p id="pan-number"></p>
+    <p id="ipv4"></p>
+    <p id="ipv6"></p>
+  </div>
+
+  <!-- Button Container -->
+  <div class="buttons-container" class="button-container">
+    <button id="refresh-first-name-btn">First Name</button>
+    <button id="refresh-last-name-btn">Last Name</button>
+    <button id="refresh-full-name-btn">Full Name</button>
+    <button id="refresh-email-btn">Email address</button>
+    <button id="refresh-sentence-btn">Sentence</button>
+    <button id="refresh-paragraph-btn">Paragraph</button>
+    <button id="refresh-movie-btn">Movie</button>
+    <button id="refresh-company-btn">Company</button>
+    <button id="refresh-website-btn">Website</button>
+    <button id="refresh-phone-btn">Phone Number</button>
+    <button id="refresh-city-btn">City, Country</button>
+    <button id="refresh-uuid-btn">UUID</button>
+    <button id="refresh-imdb-btn">IMDb Profile</button>
+    <button id="refresh-credit-card-btn">Credit Card Number</button>
+    <button id="refresh-linkedin-btn">LinkedIn Profile</button>
+    <button id="refresh-username-btn">Username</button>
+    <button id="refresh-job-title-btn">Job Title</button>
+    <button id="refresh-pan-btn">PAN Number</button>
+    <button id="refresh-ipv4-btn">IPv4 Address</button>
+    <button id="refresh-ipv6-btn">IPv6 Address</button>
+  </div>
+  <div id="copied-message">Copied to clipboard!</div>
+  <script src="dist/popup.min.js" type="module"></script>
+</body>
+</html>

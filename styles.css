@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+  }
+  
+  .container {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: flex-start; /* Align items to the left */
+  }
+  
+  button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 15px;  /* Round corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;  /* Removes outline from the button */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+
+  }
+  
+  /* For the pop-up container */
+.popup-container {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;  /* Hidden by default */
+    z-index: 1000;
+}
+
+  p {
+    font-size: 18px;
+    color: #555;
+    font-weight: bold;
+  }
+
+  .section h2 {
+    margin-right: 10px; /* Add space between the <h2> and <p> */
+  }
+  
+  .section p {
+    margin: 0;
+    margin-right: 10px; /* Add space between <p> and the button */
+    font-size: 16px;
+    color: #555;
+  }
+  
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  
+  button:focus {
+    outline: 3px solid #ffbf47;  /* Visual cue for focus state */
+  }
